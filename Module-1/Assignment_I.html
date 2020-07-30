@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app = "Assignment_1">
+    <head>
+        <meta charset="utf-8">
+        <script src = "angular.min.js"></script>
+        <script src = "Assignment_I.js"></script>
+        <script src="app.js"></script>
+        <link rel="stylesheet" href="Assignment_I.css">
+
+    </head>
+    <body>
+        <div ng-controller = "foodListController">
+            <h4>Please Enter the items you use for lunch as comma separated string: </h4>
+            <input  id='textbox' type = 'text' value ="" ng-model = 'foodItems'>  (Empty item is not considered)
+            </br>
+            {{message}}
+            </br></br>
+            <button ng-click = checkFoodItems(foodItems)>check if too much?</button>
+
+        </div>
+    </body>
+</html>
