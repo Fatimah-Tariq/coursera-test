@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <script src="angular.min.js"></script>
     <script src="assignment3.js"></script>
-    <link rel="stylesheet" href="assignment3.css">
     <title>Using $http Service</title>
   </head>
   <body>
@@ -19,21 +18,10 @@
           <b>Item Description: </b>{{item.description}}
           <button ng-click ="menu.removeItem($index);" >Don't want this one! </button>
 
-          <!-- <menu-directive on-remove="menu.removeItem(index)" ></menu-directive> -->
         </li>
       </ul>
       <div style="color: red;" ng-show="!menu.foundItems.length">Nothing found!</div>
 
-
-
-
-      
-      <!-- <ul>
-        <li ng-repeat="category in menu.categories">
-          (<a href="" ng-click="menu.logMenuItems(category.short_name);">{{ category.short_name }}</a>)
-          {{ category.name }}
-        </li>
-      </ul> -->
     </div>
 
   </body>
