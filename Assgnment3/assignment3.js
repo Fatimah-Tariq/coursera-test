@@ -1,28 +1,60 @@
-<!DOCTYPE html>
-<html ng-app='MenuCategoriesApp'>
-  <head>
-    <meta charset="utf-8">
-    <script src="angular.min.js"></script>
-    <script src="assignment3.js"></script>
-    <title>Using $http Service</title>
-  </head>
-  <body>
-    <div ng-controller='MenuCategoriesController as menu'>
-      <h3>Search for any item in Menu</h3>
-      <input type = "text" ng-model = "menu.itemName" placeholder="Enter the menu item">
-      <button ng-click="menu.FindInMenuList(menu.itemName);"> Narrow It Down For Me!</button>
-      <ul>
-        <li ng-repeat="item in menu.foundItems ">
-          <b>Item Name: </b> {{ item.name }},  
-          <b>Item Short name: </b>{{ item.short_name }},
-          <b>Item Description: </b>{{item.description}}
-          <button ng-click ="menu.removeItem($index);" >Don't want this one! </button>
+(function () {
+  'use strict';
+  
+  angular.module('MenuCategoriesApp', [])
+  .controller('MenuCategoriesController', MenuCategoriesController)
+  .service('MenuCategoriesService', MenuCategoriesService)
+  .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
+  
+  MenuCategoriesController.$inject = ['MenuCategoriesService'];
+  function MenuCategoriesController(MenuCategoriesService) {
+    var menu = this;
+    menu.foundItems = [];
+  
+    menu.FindInMenuList =  function(itemName){
+      var promise = MenuCategoriesService.getMenuCategories();
+      menu.foundItems = [];
+      promise.then(function (response) {
+        console.log(response.data);
+        for (var i = 0; i < response.data.menu_items.length; i++) {
+          var description = response.data.menu_items[i].description;
+          if (description.toLowerCase().indexOf(itemName) !== -1) {
+            menu.foundItems.push(response.data.menu_items[i]);
+          }
+        }
+        console.log(menu.foundItems );
+//        return foundItems;
+       
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      console.log(menu.foundItems)   
+    };
 
-        </li>
-      </ul>
-      <div style="color: red;" ng-show="!menu.foundItems.length">Nothing found!</div>
+    menu.removeItem = function (itemIndex) {
+      MenuCategoriesService.removeItem(menu.foundItems, itemIndex);
+    };
 
-    </div>
+  }
+  
+  
+  MenuCategoriesService.$inject = ['$http', 'ApiBasePath'];
+  function MenuCategoriesService($http, ApiBasePath) {
+    var service = this;
+  
+    service.getMenuCategories = function () {
+      var response = $http({
+        method: "GET",
+        url: (ApiBasePath + "/menu_items.json"),
+      });
+  
+      return response;
+    };
 
-  </body>
-</html>
+    service.removeItem = function (items, itemIndex) {
+      items.splice(itemIndex, 1);
+    };
+  }
+  
+  })();
