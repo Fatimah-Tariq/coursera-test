@@ -29,6 +29,16 @@
     
         return service.response;
       }
+      // service.getItemsForCategory = function(categoryShortName){
+      //     var service = this;
+  
+      //     service.response = $http({
+      //       method: "GET",
+      //       url: ("https://davids-restaurant.herokuapp.com/menu_items.json?category=" + categoryShortName)
+      //     });
+      
+      //     return service.response;
+      //   }
         
     }
     
