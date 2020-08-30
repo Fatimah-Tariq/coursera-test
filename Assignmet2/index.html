@@ -1,0 +1,62 @@
+<!-- <!DOCTYPE html>
+<html ng-app = "ShoppingList">
+    <head>
+        <meta charset="utf-8">
+        <script src = "angular.min.js"></script>
+        <script src = "assignment2.js"></script>
+        <link rel = "stylesheet"  href = "assignment2.css">
+    </head>
+    <body>
+        <h4 style="display: inline-block">To Buy List: </h4>
+        <h4 style="display: inline-block; margin-left: 150px">Bought List: </h4>
+
+        <div ng-controller = "toBuyListController as toBuyList" style="position:absolute;">
+            <div style=" display: inline-block; width: 175px">
+                <div ng-repeat = "items in toBuyList.listOfItems" >
+                    Buy {{items.quantity }} {{items.name }} 
+                    <button ng-click = "toBuyList.sendToBoughtList($index)" >Buy </button>
+                </div>
+                <div ng-show="!toBuyList.listOfItems.length"> Everything is bought!</div>
+            </div>
+
+            <div style=" display: inline-block; margin-left: 50px;  width: 150px">
+                <div  ng-repeat = "items in toBuyList.boughtList">
+                     Bought {{items[0].quantity }} {{items[0].name }}
+                </div>
+                <div ng-show="!toBuyList.boughtList.length"> Nothing bought yet!</div>
+            </div>
+            
+        </div> 
+    </body>
+</html> -->
+<!DOCTYPE html>
+<html ng-app = "ShoppingList">
+    <head>
+        <meta charset="utf-8">
+        <script src = "angular.min.js"></script>
+        <script src = "assignment2.js"></script>
+        <link rel = "stylesheet"  href = "assignment2.css">
+    </head>
+    <body>
+        <h4 style="display: inline-block">To Buy List: </h4>
+        <h4 style="display: inline-block; margin-left: 150px">Bought List: </h4>
+
+        <div ng-controller = "toBuyListController as toBuyList" style="position:absolute;">
+            <div style=" display: inline-block; width: 175px">
+                <div ng-repeat = "items in toBuyList.boughtList" >
+                    Buy {{items.quantity }} {{items.name }} 
+                    <button ng-click = "toBuyList.sendToBoughtList($index, items.name, items.quantity)" >Buy </button>
+                </div>
+                <div  style="color: red;" ng-show="!toBuyList.boughtList.length"> Everything is bought!</div>
+            </div>
+
+            <div style=" display: inline-block; margin-left: 50px;  width: 150px">
+                <div  ng-repeat = "items in toBuyList.secondList">
+                     Bought {{items.quantity }} {{items.name }}
+                </div>
+                <div style="color: red;" ng-show="!toBuyList.secondList.length"> Nothing bought yet!</div>
+            </div>
+            
+        </div> 
+    </body>
+</html>
